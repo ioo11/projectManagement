@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <script src="app.js"></script>
+    <script src="testData.js"></script>
+    <script src="models.js"></script>
+    <script src="cards.js"></script>
+    <script src="onload.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="buttons">
+        <input type="button" value="Get Projects" onclick="alert(getProjects())">
+        <input type="button" value="Get Users" onclick="alert(getUsers())">
+        <input type="button" value="Get Tasks" onclick="alert(getTasks())">
+        <link rel="stylesheet" href="style.css">
+    </div>
+    <div class="main container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Проекты</h1>
+            </div>
+            <div class="col-md-4">
+                <h1>Задачи</h1>
+            </div>
+            <div class="col-md-4">
+                <h1>Пользователи</h1>
+            </div>
+            <div class="projects col-md-4">
+            </div>
+            <div class="tasks col-md-4">
+                <!-- <button type="button" class="add-task btn btn-success">Добавить задачу</button> -->
+            </div>
+            <div class="users col-md-4">
+                <!-- <button type="button" class="add-user btn btn-success">Добавить пользователя</button> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
