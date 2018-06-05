@@ -6,19 +6,22 @@ function Owner(name, id) {
     return owner
 }
 
-function Project(title, description, owner) {
-    let card = {
+function Project(title, description, owner, id, status) {
+    return {
         owner: owner,
         title: title,
-        description: description
+        description: description,
+        id: id,
+        status: status
     }
-    return card
 }
 
-function Task(title, description) {
+function Task(title, description, id, status) {
     let card = {
         title: title,
-        description: description
+        description: description,
+        id: id,
+        status: status
     }
     return card
 }

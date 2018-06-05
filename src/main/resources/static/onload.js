@@ -14,8 +14,7 @@ function initTasks() {
         url: '../api/task',
         success: function (data) {
             console.log(data);
-            data.forEach(element => insertTask(Task(element.name, element.description)))
-
+            data.forEach(e => insertTask(Task(e.name, e.description, e.id, e.status)))
         },
         error: function (data) {
             console.log(data);
@@ -29,7 +28,7 @@ function initProjects() {
         url: '../api/project',
         success: function (data) {
             console.log(data);
-            data.forEach(element => insertProject(Project(element.name, element.description, element.owner)))
+            data.forEach(e => insertProject(Project(e.name, e.description, e.owner, e.id, e.status)))
         },
         error: function (data) {
             console.log(data);

@@ -5,21 +5,6 @@ function getData(dataType) {
     return xhr.responseText
 }
 
-// function getTasks() {
-//     // return getData("task")
-//     return JSON.stringify(testTask)
-// }
-
-// function getProjects() {
-//     // return getData("project")
-//     return JSON.stringify(testProject)
-// }
-
-// function getUsers() {
-//     // return getData("user")
-//     return JSON.stringify(testUser)
-// }
-
 function projectSelected(card) {
     console.log(card)
 }
@@ -79,7 +64,7 @@ function addProject(){
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log(data);
-                let project = new Project(data.name, data.description, data.owner)
+                let project = new Project(data.name, data.description, data.owner, data.id, data.status)
                 insertProject(project)
             },
             error: function(data){
@@ -104,7 +89,7 @@ function addTask(){
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log(data);
-                let task = new Task(data.name, data.description)
+                let task = new Task(data.name, data.description, data.id, data.status)
                 insertTask(task)
             },
             error: function(data){

@@ -1,4 +1,10 @@
 function ProjectCard(project) {
+//   <select class="custom-select" id="inputGroupSelect01">
+//     <option selected>Choose...</option>
+//     <option value="1">One</option>
+//     <option value="2">Two</option>
+//     <option value="3">Three</option>
+//   </select>
     let card = $("<div>", {
         "class": "card project-card"
     }).click(function(){
@@ -20,7 +26,13 @@ function ProjectCard(project) {
         "class": "btn btn-primary btn-sm",
         text: project.owner
     })
-    return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink))
+    let select = $("<select>", {
+        "class":"custom-select"
+    })
+    .append($("<option>",{value:"OPEN", text:"Открыт"}))
+    .append($("<option>",{value:"CLOSED", text:"Закрыт"}))
+    .val(project.status)
+    return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink, select))
 }
 
 function TaskCard(task) {
@@ -38,7 +50,14 @@ function TaskCard(task) {
         text: task.description,
         "class": "card-text"
     })
-    return card.append(cardBody.append(cardTitle, cardText))
+    let select = $("<select>", {
+        "class":"custom-select"
+    })
+    .append($("<option>",{value:"OPEN", text:"Открыт"}))
+    .append($("<option>",{value:"CLOSED", text:"Закрыт"}))
+    .val(task.status)
+    console.log(task)
+    return card.append(cardBody.append(cardTitle, cardText, select))
 }
 
 function OwnerCard(owner) {
