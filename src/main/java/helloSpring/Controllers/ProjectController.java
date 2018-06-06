@@ -27,7 +27,7 @@ public class ProjectController {
         return projectRepository.findAll();
     }
     @GetMapping("/project/{id}")
-    public Project getProject(@PathVariable("id")Long id ){
+    public Project getProject(@PathVariable("id")Long id){
         return projectRepository.findProjectById(id);
     }
 }
