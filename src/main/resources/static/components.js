@@ -154,7 +154,7 @@ function UpdatingProjectComponent() {
         let cardOwnerLink = $("<button>", {
             type: "button",
             "class": "btn btn-primary btn-sm",
-            text: this.model.owner.name
+            text: this.model.owner !== null? this.model.owner.name : ""
         })
         let select = $("<select>", {
             "class": "custom-select project-updating-status"
@@ -169,6 +169,84 @@ function UpdatingProjectComponent() {
         }).click(function () { PageManager.editProjectConfirm(component)})
 
         return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink, select, changeButton))
+    }
+    return component
+}
+
+function UpdatingTaskComponent() {
+    let component = {}
+    component.model = {
+        title: "",
+        description: "",
+        id: "",
+        status: ""
+    }
+    component.toHTML = function () {
+        let card = $("<div>", {
+            "class": "card task-card task-updating-card",
+            id: "task" + this.model.id
+        })
+        let cardBody = $("<div>", {
+            "class": "card-body"
+        })
+        let cardTitle = $("<input>", {
+            type: "text",
+            value: this.model.title,
+            "class": "card-title task-updating-title"
+        })
+        let cardText = $("<input>", {
+            type: "text",
+            value: this.model.description,
+            "class": "card-text task-updating-description"
+        })
+        let select = $("<select>", {
+            "class": "custom-select task-updating-status"
+        })
+            .append($("<option>", { value: "OPEN", text: "Открыт" }))
+            .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
+            .val(this.model.status)
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-secondary btn-sm",
+            text: "Применить"
+        }).click(function () { PageManager.editTaskConfirm(component)})
+
+        return card.append(cardBody.append(cardTitle, cardText, select, changeButton))
+    }
+    return component
+}
+
+function UpdatingUserComponent() {
+    let component = {}
+    component.model = {
+        name: "",
+        id: ""
+    }
+    component.toHTML = function () {
+        let card = $("<div>", {
+            "class": "card user-card user-updating-card",
+            id: "user" + this.model.id
+        })
+        let cardBody = $("<div>", {
+            "class": "card-body"
+        })
+        let cardTitle = $("<input>", {
+            type: "text",
+            value: this.model.name,
+            "class": "card-title user-updating-title"
+        })
+        // let cardText = $("<input>", {
+        //     type: "text",
+        //     value: this.model.description,
+        //     "class": "card-text user-updating-description"
+        // })
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-secondary btn-sm",
+            text: "Применить"
+        }).click(function () { PageManager.editUserConfirm(component)})
+
+        return card.append(cardBody.append(cardTitle, /*cardText,*/ changeButton))
     }
     return component
 }

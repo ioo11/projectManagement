@@ -1,4 +1,4 @@
-package helloSpring.Models;
+package helloSpring.Project;
 
 import org.springframework.data.repository.CrudRepository;
 

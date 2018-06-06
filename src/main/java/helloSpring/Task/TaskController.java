@@ -1,8 +1,5 @@
-package helloSpring.Controllers;
+package helloSpring.Task;
 
-import helloSpring.Models.Task;
-import helloSpring.Models.TaskModel;
-import helloSpring.Models.TaskRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +14,17 @@ public class TaskController {
     @PostMapping("/task")
     public Task createTask(@RequestBody TaskModel taskModel){
         Task task = new Task(taskModel.Name, taskModel.Description);
+        taskRepository.save(task);
+        return task;
+    }
+
+    @PutMapping("/task/{id}")
+    public Task updateTask(@PathVariable("id") Long id, @RequestBody TaskModel taskModel) {
+        Task task = taskRepository.findTaskById(id);
+        task.setName(taskModel.Name);
+        task.setDescription(taskModel.Description);
+        task.setStatus(taskModel.Status);
+//        Project project = new Project(projectModel.Name, projectModel.Description);
         taskRepository.save(task);
         return task;
     }

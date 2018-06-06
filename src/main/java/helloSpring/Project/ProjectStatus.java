@@ -1,4 +1,4 @@
-package helloSpring.Models;
+package helloSpring.Project;
 
 public enum ProjectStatus {
     OPEN,

@@ -1,5 +1,6 @@
-package helloSpring.Models;
+package helloSpring.Task;
 
+import helloSpring.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;

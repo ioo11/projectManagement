@@ -1,10 +1,10 @@
-package helloSpring.Models;
-
+package helloSpring.User;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import helloSpring.Project.Project;
+import helloSpring.Task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 
 import java.util.HashSet;
 import java.util.Set;

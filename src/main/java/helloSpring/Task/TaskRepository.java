@@ -1,4 +1,4 @@
-package helloSpring.Models;
+package helloSpring.Task;
 
 import org.springframework.data.repository.CrudRepository;
 

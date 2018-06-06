@@ -1,6 +1,5 @@
-package helloSpring.Controllers;
+package helloSpring.User;
 
-import helloSpring.Models.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,11 +12,13 @@ public class UserController {
     }
 
 
-//    @PostMapping("/user")
-//    public void createUser(@RequestBody User user){
-//        userRepository.save(user);
-//    }
-
+    @PutMapping("/user/{id}")
+    public User updateUser(@PathVariable("id") Long id, @RequestBody UserModel userModel) {
+        User user = userRepository.findUserById(id);
+        user.setName(userModel.Name);
+        userRepository.save(user);
+        return user;
+    }
     @PostMapping("/user")
     public User createUser(@RequestBody UserModel userModel){
         User user = new User(userModel.Name);
@@ -33,12 +34,5 @@ public class UserController {
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable("id") Long id){
         return userRepository.findUserById(id);
-    }
-
-    @PostMapping("/user/{id}")
-    public User updateUser(@PathVariable("id") Long id, @RequestBody UserModel userModel){
-        User user = new User(id, userModel.Name);
-        userRepository.save(user);
-        return user;
     }
 }

@@ -1,7 +1,9 @@
-package helloSpring.Models;
+package helloSpring.Project;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import helloSpring.Task.Task;
+import helloSpring.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -30,6 +32,7 @@ public class Project {
     private ProjectStatus Status;
 
 //    constructors
+
     @Autowired
     public Project() {
         Status = ProjectStatus.OPEN;
@@ -49,6 +52,15 @@ public class Project {
         Name = name;
         Description = description;
         Status = status;
+        Workers = new HashSet<User>();
+        Tasks = new HashSet<Task>();
+    }
+    @Autowired
+    public Project(String name, Long id, String description, ProjectStatus status) {
+        Name = name;
+        Description = description;
+        Status = status;
+        this.id = id;
         Workers = new HashSet<User>();
         Tasks = new HashSet<Task>();
     }

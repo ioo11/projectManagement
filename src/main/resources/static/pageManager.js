@@ -208,10 +208,18 @@ let PageManager = function () {
         $("#project" + component.model.id).replaceWith(updatingComponent.toHTML())
     }
     manager.editTask = function (component) {
+        console.log("editing task")
         console.log(component)
+        updatingComponent = UpdatingTaskComponent()
+        updatingComponent.model = component.model
+        $("#task" + component.model.id).replaceWith(updatingComponent.toHTML())
     }
     manager.editUser = function (component) {
+        console.log("editing user")
         console.log(component)
+        updatingComponent = UpdatingUserComponent()
+        updatingComponent.model = component.model
+        $("#user" + component.model.id).replaceWith(updatingComponent.toHTML())
     }
 
     manager.editProjectConfirm = function (component) {
@@ -231,15 +239,60 @@ let PageManager = function () {
                 return e.model.id !== component.model.id
             })
             manager.projectList.items = t
-            manager.sendProject(component)
+            console.log(newComponent)
+            manager.sendProject(newComponent)
+            root.remove()
+        }
+    }
+
+    manager.editTaskConfirm = function (component) {
+        let root = $("#task" + component.model.id)
+        let title = root.find(".task-updating-title")[0].value
+        if (title == "") {
+            root.find(".task-updating-title")[0].focus()
+        }
+        else {
+            let newComponent = TaskComponent()
+            newComponent.model.description = root.find(".task-updating-description")[0].value
+            newComponent.model.id = component.model.id
+            newComponent.model.status = root.find(".task-updating-status")[0].value
+            newComponent.model.title = title
+            t = manager.taskList.items.filter(function(e){
+                return e.model.id !== component.model.id
+            })
+            manager.taskList.items = t
+            console.log(newComponent)
+            manager.sendTask(newComponent)
+            root.remove()
+        }
+    }
+
+    manager.editUserConfirm = function (component) {
+        let root = $("#user" + component.model.id)
+        let title = root.find(".user-updating-title")[0].value
+        if (title == "") {
+            root.find(".user-updating-title")[0].focus()
+        }
+        else {
+            let newComponent = UserComponent()
+            // newComponent.model.description = root.find(".user-updating-description")[0].value
+            newComponent.model.id = component.model.id
+            newComponent.model.name = title
+            t = manager.userList.items.filter(function(e){
+                return e.model.id !== component.model.id
+            })
+            manager.userList.items = t
+            console.log(newComponent)
+            manager.sendUser(newComponent)
+            root.remove()
         }
     }
 
     manager.sendProject = function(component){
         console.log('../api/project/'+component.model.id)
         $.ajax({
-            type: 'Post',
-            url: '../api/project/',
+            type: 'PUT',
+            url: '../api/project/'+component.model.id,
             data: JSON.stringify({ 
                 "Name": component.model.title,
                 "Description": component.model.description,
@@ -256,6 +309,56 @@ let PageManager = function () {
                 project.model.owner = data.owner
                 project.model.status = data.status
                 manager.showProject(project)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    manager.sendTask = function(component){
+        console.log('../api/task/'+component.model.id)
+        $.ajax({
+            type: 'PUT',
+            url: '../api/task/'+component.model.id,
+            data: JSON.stringify({ 
+                "Name": component.model.title,
+                "Description": component.model.description,
+                "id:": component.model.id,
+                "Status": component.model.status
+            }),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                let task = TaskComponent()
+                task.model.title = data.name
+                task.model.id = data.id
+                task.model.description = data.description
+                task.model.status = data.status
+                manager.showTask(task)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
+    manager.sendUser = function(component){
+        console.log('../api/user/'+component.model.id)
+        $.ajax({
+            type: 'PUT',
+            url: '../api/user/'+component.model.id,
+            data: JSON.stringify({ 
+                "Name": component.model.name,
+                "id:": component.model.id
+            }),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                let user = UserComponent()
+                user.model.name = data.name
+                user.model.id = data.id
+                manager.showUser(user)
             },
             error: function (data) {
                 console.log(data);
