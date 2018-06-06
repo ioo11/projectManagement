@@ -45,6 +45,14 @@ public class Project {
         Tasks = new HashSet<Task>();
     }
     @Autowired
+    public Project(String name, String description, ProjectStatus status) {
+        Name = name;
+        Description = description;
+        Status = status;
+        Workers = new HashSet<User>();
+        Tasks = new HashSet<Task>();
+    }
+    @Autowired
     public Project(String name, User owner) {
         Name = name;
         Owner = owner;

@@ -9,7 +9,8 @@ function ProjectComponent() {
     }
     component.toHTML = function () {
         let card = $("<div>", {
-            "class": "card project-card"
+            "class": "card project-card",
+            id: "project" + this.model.id
         })
         let cardBody = $("<div>", {
             "class": "card-body"
@@ -25,7 +26,7 @@ function ProjectComponent() {
         let cardOwnerLink = $("<button>", {
             type: "button",
             "class": "btn btn-primary btn-sm",
-            text: this.model.owner.name
+            text: this.model.owner != null ? this.model.owner.name: ""
         })
         let select = $("<p>", {
             "class": "card-text",
@@ -33,9 +34,9 @@ function ProjectComponent() {
         })
         let changeButton = $("<button>", {
             type: "button",
-            "class": "btn btn-success btn-sm",
+            "class": "btn btn-secondary btn-sm",
             text: "Редактировать"
-        })
+        }).click(function () { PageManager.editProject(component) })
         // let select = $("<select>", {
         //     "class": "custom-select"
         // })
@@ -55,7 +56,8 @@ function UserComponent() {
     }
     component.toHTML = function () {
         let card = $("<div>", {
-            "class": "card user-card"
+            "class": "card user-card",
+            id: "user" + this.model.id
         })
         let cardBody = $("<div>", {
             "class": "card-body"
@@ -70,9 +72,9 @@ function UserComponent() {
         })
         let changeButton = $("<button>", {
             type: "button",
-            "class": "btn btn-success btn-sm",
+            "class": "btn btn-secondary btn-sm",
             text: "Редактировать"
-        })
+        }).click(function () { PageManager.editUser(component) })
         return card.append(cardBody.append(cardTitle, cardText, changeButton))
     }
     return component
@@ -88,7 +90,8 @@ function TaskComponent() {
     }
     component.toHTML = function () {
         let card = $("<div>", {
-            "class": "card task-card"
+            "class": "card task-card",
+            id: "task" + this.model.id
         })
         let cardBody = $("<div>", {
             "class": "card-body"
@@ -107,9 +110,9 @@ function TaskComponent() {
         })
         let changeButton = $("<button>", {
             type: "button",
-            "class": "btn btn-success btn-sm",
+            "class": "btn btn-secondary btn-sm",
             text: "Редактировать"
-        })
+        }).click(function () { PageManager.editTask(component) })
         // let select = $("<select>", {
         //     "class": "custom-select"
         // })
@@ -117,6 +120,55 @@ function TaskComponent() {
         //     .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
         //     .val(this.model.status)
         return card.append(cardBody.append(cardTitle, cardText, select, changeButton))
+    }
+    return component
+}
+
+function UpdatingProjectComponent() {
+    let component = {}
+    component.model = {
+        owner: "", // TODO something 
+        title: "",
+        description: "",
+        id: "",
+        status: ""
+    }
+    component.toHTML = function () {
+        let card = $("<div>", {
+            "class": "card project-card project-updating-card",
+            id: "project" + this.model.id
+        })
+        let cardBody = $("<div>", {
+            "class": "card-body"
+        })
+        let cardTitle = $("<input>", {
+            type: "text",
+            value: this.model.title,
+            "class": "card-title project-updating-title"
+        })
+        let cardText = $("<input>", {
+            type: "text",
+            value: this.model.description,
+            "class": "card-text project-updating-description"
+        })
+        let cardOwnerLink = $("<button>", {
+            type: "button",
+            "class": "btn btn-primary btn-sm",
+            text: this.model.owner.name
+        })
+        let select = $("<select>", {
+            "class": "custom-select project-updating-status"
+        })
+            .append($("<option>", { value: "OPEN", text: "Открыт" }))
+            .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
+            .val(this.model.status)
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-secondary btn-sm",
+            text: "Применить"
+        }).click(function () { PageManager.editProjectConfirm(component)})
+
+        return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink, select, changeButton))
     }
     return component
 }
@@ -207,7 +259,6 @@ function CardListComponent() {
     component.toHTML = function () {
         let wrap = []
         this.items.forEach(e => wrap.push(e.toHTML()))
-        console.log(wrap)
         return wrap
     }
     return component

@@ -36,6 +36,14 @@ public class User {
         Tasks = new HashSet<Task>();
     }
 
+    @Autowired
+    public User(Long id, String name) {
+        this.id = id;
+        Name = name;
+        Projects = new HashSet<Project>();
+        Tasks = new HashSet<Task>();
+    }
+
 //    getters & setters
     public String getName() {
         return Name;

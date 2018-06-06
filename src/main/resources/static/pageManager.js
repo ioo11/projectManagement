@@ -12,7 +12,6 @@ let PageManager = function () {
             success: function (data) {
                 console.log(data);
                 data.forEach(function (e) {
-                    console.log(e)
                     let component = ProjectComponent()
                     component.model.id = e.id
                     component.model.title = e.name
@@ -34,7 +33,6 @@ let PageManager = function () {
             success: function (data) {
                 console.log(data);
                 data.forEach(function (e) {
-                    console.log(e)
                     let component = TaskComponent()
                     component.model.id = e.id
                     component.model.title = e.name
@@ -55,7 +53,6 @@ let PageManager = function () {
             success: function (data) {
                 console.log(data);
                 data.forEach(function (e) {
-                    console.log(e)
                     let component = UserComponent()
                     component.model.id = e.id
                     component.model.name = e.name
@@ -190,18 +187,81 @@ let PageManager = function () {
         }
     }
 
-    manager.showProject = function(projectComponent){
+    manager.showProject = function (projectComponent) {
         manager.projectList.items.push(projectComponent)
         $(".projects").prepend(projectComponent.toHTML())
     }
-    manager.showUser = function(userComponent){
+    manager.showUser = function (userComponent) {
         manager.userList.items.push(userComponent)
         $(".users").prepend(userComponent.toHTML())
     }
-    manager.showTask = function(taskComponent){
+    manager.showTask = function (taskComponent) {
         manager.taskList.items.push(taskComponent)
         $(".tasks").prepend(taskComponent.toHTML())
     }
-    
+
+    manager.editProject = function (component) {
+        console.log("editing project")
+        console.log(component)
+        updatingComponent = UpdatingProjectComponent()
+        updatingComponent.model = component.model
+        $("#project" + component.model.id).replaceWith(updatingComponent.toHTML())
+    }
+    manager.editTask = function (component) {
+        console.log(component)
+    }
+    manager.editUser = function (component) {
+        console.log(component)
+    }
+
+    manager.editProjectConfirm = function (component) {
+        let root = $("#project" + component.model.id)
+        let title = root.find(".project-updating-title")[0].value
+        if (title == "") {
+            root.find(".project-updating-title")[0].focus()
+        }
+        else {
+            let newComponent = ProjectComponent()
+            newComponent.model.description = root.find(".project-updating-description")[0].value
+            newComponent.model.id = component.model.id
+            newComponent.model.owner = component.model.owner
+            newComponent.model.status = root.find(".project-updating-status")[0].value
+            newComponent.model.title = title
+            t = manager.projectList.items.filter(function(e){
+                return e.model.id !== component.model.id
+            })
+            manager.projectList.items = t
+            manager.sendProject(component)
+        }
+    }
+
+    manager.sendProject = function(component){
+        console.log('../api/project/'+component.model.id)
+        $.ajax({
+            type: 'Post',
+            url: '../api/project/',
+            data: JSON.stringify({ 
+                "Name": component.model.title,
+                "Description": component.model.description,
+                "id:": component.model.id,
+                "Status": component.model.status
+            }),
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                let project = ProjectComponent()
+                project.model.title = data.name
+                project.model.id = data.id
+                project.model.description = data.description
+                project.model.owner = data.owner
+                project.model.status = data.status
+                manager.showProject(project)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        })
+    }
+
     return manager
 }()
