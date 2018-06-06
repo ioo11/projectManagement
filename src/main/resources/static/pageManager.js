@@ -189,6 +189,7 @@ let PageManager = function () {
             })
         }
     }
+
     manager.showProject = function(projectComponent){
         manager.projectList.items.push(projectComponent)
         $(".projects").prepend(projectComponent.toHTML())
@@ -201,5 +202,6 @@ let PageManager = function () {
         manager.taskList.items.push(taskComponent)
         $(".tasks").prepend(taskComponent.toHTML())
     }
+    
     return manager
 }()

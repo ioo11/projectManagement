@@ -25,15 +25,24 @@ function ProjectComponent() {
         let cardOwnerLink = $("<button>", {
             type: "button",
             "class": "btn btn-primary btn-sm",
-            text: this.model.owner
+            text: this.model.owner.name
         })
-        let select = $("<select>", {
-            "class": "custom-select"
+        let select = $("<p>", {
+            "class": "card-text",
+            text: "Статус: " + (this.model.status == "OPEN" ? "Открыт" : "Закрыт")
         })
-            .append($("<option>", { value: "OPEN", text: "Открыт" }))
-            .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
-            .val(this.model.status)
-        return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink, select))
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-success btn-sm",
+            text: "Редактировать"
+        })
+        // let select = $("<select>", {
+        //     "class": "custom-select"
+        // })
+        //     .append($("<option>", { value: "OPEN", text: "Открыт" }))
+        //     .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
+        //     .val(this.model.status)
+        return card.append(cardBody.append(cardTitle, cardText, cardOwnerLink, select, changeButton))
     }
     return component
 }
@@ -59,7 +68,12 @@ function UserComponent() {
             text: "id: " + this.model.id,
             "class": "card-text"
         })
-        return card.append(cardBody.append(cardTitle, cardText))
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-success btn-sm",
+            text: "Редактировать"
+        })
+        return card.append(cardBody.append(cardTitle, cardText, changeButton))
     }
     return component
 }
@@ -87,13 +101,22 @@ function TaskComponent() {
             text: this.model.description,
             "class": "card-text"
         })
-        let select = $("<select>", {
-            "class": "custom-select"
+        let select = $("<p>", {
+            "class": "card-text",
+            text: "Статус: " + (this.model.status == "OPEN" ? "Открыт" : "Закрыт")
         })
-            .append($("<option>", { value: "OPEN", text: "Открыт" }))
-            .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
-            .val(this.model.status)
-        return card.append(cardBody.append(cardTitle, cardText, select))
+        let changeButton = $("<button>", {
+            type: "button",
+            "class": "btn btn-success btn-sm",
+            text: "Редактировать"
+        })
+        // let select = $("<select>", {
+        //     "class": "custom-select"
+        // })
+        //     .append($("<option>", { value: "OPEN", text: "Открыт" }))
+        //     .append($("<option>", { value: "CLOSED", text: "Закрыт" }))
+        //     .val(this.model.status)
+        return card.append(cardBody.append(cardTitle, cardText, select, changeButton))
     }
     return component
 }
