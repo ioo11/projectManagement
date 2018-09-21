@@ -1,4 +1,4 @@
-package helloSpring.User;
+package projectManagement.User;
 
 import org.springframework.data.repository.CrudRepository;
 

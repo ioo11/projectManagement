@@ -1,9 +1,9 @@
-package helloSpring.Project;
+package projectManagement.Project;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import helloSpring.Task.Task;
-import helloSpring.User.User;
+import projectManagement.Task.Task;
+import projectManagement.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;

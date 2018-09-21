@@ -1,4 +1,4 @@
-package helloSpring.User;
+package projectManagement.User;
 
 import org.springframework.web.bind.annotation.*;
 

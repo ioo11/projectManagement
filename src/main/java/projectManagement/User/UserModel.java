@@ -1,4 +1,4 @@
-package helloSpring.User;
+package projectManagement.User;
 
 public class UserModel {
     public String Name;

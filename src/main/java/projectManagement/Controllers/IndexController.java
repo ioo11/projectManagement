@@ -1,7 +1,7 @@
-package helloSpring.Controllers;
+package projectManagement.Controllers;
 
-import helloSpring.Models.Visit;
-import helloSpring.Models.VisitsRepository;
+import projectManagement.Models.Visit;
+import projectManagement.Models.VisitsRepository;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 

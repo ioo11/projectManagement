@@ -1,4 +1,4 @@
-package helloSpring.Task;
+package projectManagement.Task;
 
 public class TaskModel {
     public String Name;

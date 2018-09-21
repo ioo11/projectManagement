@@ -1,4 +1,4 @@
-package helloSpring.Project;
+package projectManagement.Project;
 
 public class ProjectModel {
     public String Name;

@@ -1,4 +1,4 @@
-package helloSpring.Task;
+package projectManagement.Task;
 
 public enum TaskStatus {
     OPEN,

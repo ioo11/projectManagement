@@ -1,6 +1,6 @@
-package helloSpring.Task;
+package projectManagement.Task;
 
-import helloSpring.User.User;
+import projectManagement.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
